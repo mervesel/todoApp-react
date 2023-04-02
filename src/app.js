@@ -13,6 +13,10 @@ var products = [
     {
         name: "iphone 17",
         price: 60000
+    },
+    {
+        name: "iphone 18",
+        price: 60000
     }
 ]
 
@@ -40,31 +44,62 @@ function saveProduct(event) {
     renderApp();
 }
 
-function renderApp() {
-    var template = 
-    <div>
-        <h1 id="header">Ürün Listesi</h1>
-        <h3>Seçilen Ürünler: { selectedProducts.length }</h3>
+class Header extends React.Component{
+    render(){
+        return(
+           <div>
+               <h1 id="header">Ürün Listesi</h1>
+               <h3>Seçilen Ürünler: { selectedProducts.length }</h3>
+           </div>
+        )
+    }
+}
+class NewProduct extends React.Component{
+    render(){
+        return(
+            <form onSubmit={saveProduct}>
+              <input type="text" name="p_name" id="p_name" />
+              <input type="text" name="p_price" id="p_price" />
+              <button type="submit">Ürün Ekle</button>
+            </form>
 
-        <form onSubmit={saveProduct}>
-            <input type="text" name="p_name" id="p_name" />
-            <input type="text" name="p_price" id="p_price" />
-            <button type="submit">Ürün Ekle</button>
-        </form>
-
-        {
-            products.map((product,index) => (
-                <div className="product-details" key={index}>
-                    { <h2> { product.name } </h2>}
-                    { product.price }
-                    <button type="button" id={index} onClick={(event) => selectProduct(event, product.name)}>Ekle</button>
-                </div>
-            ))
-        }
-
-    </div>; 
-
-    root.render(template);
+        )
+    }
 }
 
-renderApp();
+class ProductList extends React.Component{
+    render(){
+        return (
+                this.props.products.map((product,index) => (
+                    <Product key={index} product={product}/>
+                    
+                ))
+        )
+    }
+}
+class Product extends React.Component{
+    render(){
+        return(
+            <div className="product-details" >
+                     { <h2> { this.props.product.name } </h2>}
+                     { this.props.product.price }
+                     <button type="button" onClick={(event) => selectProduct(event, this.props.product.name)}>Ekle</button>
+            </div>
+
+        )
+    }
+}
+class App extends React.Component{
+    render(){
+        return(
+            <div>
+               <Header />
+               <NewProduct />
+              <ProductList  products={products}/>
+            </div>
+        )
+    }
+}
+
+root.render(<App />);
+

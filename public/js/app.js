@@ -1,64 +1,194 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 var root = ReactDOM.createRoot(document.getElementById("root"));
-var products = [{
-  name: "iphone 15",
-  price: 50000
-}, {
-  name: "iphone 16",
-  price: 60000
-}, {
-  name: "iphone 17",
-  price: 60000
-}];
-var selectedProducts = [];
-function selectProduct(event, p_name) {
-  console.log(event.target, p_name);
-  if (!selectedProducts.includes(p_name)) {
-    selectedProducts.push(p_name);
+var TodoApp = /*#__PURE__*/function (_React$Component) {
+  _inherits(TodoApp, _React$Component);
+  var _super = _createSuper(TodoApp);
+  function TodoApp(props) {
+    var _this;
+    _classCallCheck(this, TodoApp);
+    _this = _super.call(this, props);
+    _this.clearItems = _this.clearItems.bind(_assertThisInitialized(_this));
+    _this.addItems = _this.addItems.bind(_assertThisInitialized(_this));
+    _this.deleteItem = _this.deleteItem.bind(_assertThisInitialized(_this));
+    _this.state = {
+      gorevler: ["Görev 1", "Görev 2", "Görev 3"]
+    };
+    return _this;
   }
-  renderApp();
-}
-function saveProduct(event) {
-  event.preventDefault();
-  var p_name = event.target.elements.p_name.value;
-  var p_price = event.target.elements.p_price.value;
-  var product = {
-    name: p_name,
-    price: p_price
-  };
-  products.push(product);
-  event.target.elements.p_name.value = "";
-  event.target.elements.p_price.value = "";
-  renderApp();
-}
-function renderApp() {
-  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-    id: "header"
-  }, "\xDCr\xFCn Listesi"), /*#__PURE__*/React.createElement("h3", null, "Se\xE7ilen \xDCr\xFCnler: ", selectedProducts.length), /*#__PURE__*/React.createElement("form", {
-    onSubmit: saveProduct
-  }, /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    name: "p_name",
-    id: "p_name"
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    name: "p_price",
-    id: "p_price"
-  }), /*#__PURE__*/React.createElement("button", {
-    type: "submit"
-  }, "\xDCr\xFCn Ekle")), products.map(function (product, index) {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "product-details",
-      key: index
-    }, /*#__PURE__*/React.createElement("h2", null, " ", product.name, " "), product.price, /*#__PURE__*/React.createElement("button", {
-      type: "button",
-      id: index,
-      onClick: function onClick(event) {
-        return selectProduct(event, product.name);
+  _createClass(TodoApp, [{
+    key: "deleteItem",
+    value: function deleteItem(item) {
+      this.setState(function (prevState) {
+        var arr = prevState.gorevler.filter(function (i) {
+          return item != i;
+        });
+        return {
+          gorevler: arr
+        };
+      });
+    }
+  }, {
+    key: "addItems",
+    value: function addItems(item) {
+      if (this.state.gorevler.indexOf(item) > -1) {
+        return "Aynı elemanı ekleyemezsiniz.";
       }
-    }, "Ekle"));
-  }));
-  root.render(template);
-}
-renderApp();
+      this.setState(function (prevState) {
+        return {
+          gorevler: prevState.gorevler.concat(item)
+        };
+      });
+    }
+  }, {
+    key: "clearItems",
+    value: function clearItems() {
+      this.setState({
+        gorevler: []
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var data = {
+        baslik: "Todo Application",
+        aciklama: "Bekleyen Görevler!"
+      };
+      return /*#__PURE__*/React.createElement("div", {
+        className: "container my-3"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "card"
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "card-header"
+      }, /*#__PURE__*/React.createElement(Header, {
+        title: data.baslik,
+        description: data.aciklama
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "card-body"
+      }, /*#__PURE__*/React.createElement(TodoList, {
+        items: this.state.gorevler,
+        clear: this.clearItems,
+        deleteItem: this.deleteItem
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "card-footer"
+      }, /*#__PURE__*/React.createElement(NewItem, {
+        addItems: this.addItems
+      }))));
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var json_obj = localStorage.getItem("items");
+      var items = JSON.parse(json_obj);
+      if (items) {
+        this.setState({
+          gorevler: items
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.gorevler.length !== this.state.gorevler) {
+        var json_str = JSON.stringify(this.state.gorevler);
+        localStorage.setItem("items", json_str);
+      }
+    }
+  }]);
+  return TodoApp;
+}(React.Component);
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "text-center"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "h3"
+  }, props.title), /*#__PURE__*/React.createElement("p", null, props.description));
+};
+var TodoList = function TodoList(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", {
+    className: "list-group"
+  }, props.items.map(function (gorev, index) {
+    return /*#__PURE__*/React.createElement(TodoItem, {
+      key: index,
+      item: gorev,
+      deleteItem: props.deleteItem
+    });
+  })), props.items.length > 0 ? /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-outline-danger float-end mt-3",
+    onClick: props.clear
+  }, "Temizle")) : /*#__PURE__*/React.createElement("div", {
+    className: "alert alert-warning"
+  }, "Bir g\xF6rev ekleyiniz."));
+};
+var TodoItem = function TodoItem(props) {
+  return /*#__PURE__*/React.createElement("li", {
+    className: "list-group-item"
+  }, props.item, /*#__PURE__*/React.createElement("button", {
+    className: "btn btn-danger btn-sm float-end",
+    onClick: function onClick() {
+      props.deleteItem(props.item);
+    }
+  }, "X"));
+};
+var NewItem = /*#__PURE__*/function (_React$Component2) {
+  _inherits(NewItem, _React$Component2);
+  var _super2 = _createSuper(NewItem);
+  function NewItem(props) {
+    var _this2;
+    _classCallCheck(this, NewItem);
+    _this2 = _super2.call(this, props);
+    _this2.onFormSubit = _this2.onFormSubit.bind(_assertThisInitialized(_this2));
+    _this2.state = {
+      error: ''
+    };
+    return _this2;
+  }
+  _createClass(NewItem, [{
+    key: "onFormSubit",
+    value: function onFormSubit(e) {
+      e.preventDefault();
+      var item = e.target.elements.txtItem.value.trim();
+      if (item) {
+        e.target.elements.txtItem.value = "";
+        var error = this.props.addItems(item);
+        this.setState({
+          error: error
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, this.state.error && /*#__PURE__*/React.createElement("p", null, this.state.error), /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.onFormSubit
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "input-group"
+      }, /*#__PURE__*/React.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "txtItem"
+      }), /*#__PURE__*/React.createElement("button", {
+        className: "btn btn-outline-primary",
+        type: "submit"
+      }, "Ekle"))));
+    }
+    // componentDidUpdate(){
+    //     console.log("NewItem component çalıştırıldı.");
+    // }
+  }]);
+  return NewItem;
+}(React.Component);
+root.render( /*#__PURE__*/React.createElement(TodoApp, null));
